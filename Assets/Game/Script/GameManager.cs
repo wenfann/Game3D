@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public GameUI_Manager gameUI_Manager;
@@ -14,12 +14,12 @@ public class GameManager : MonoBehaviour
 
     private void GameOver()
     {
-        Debug.Log("GAME OVER");
+        gameUI_Manager.ShowGameOverUI();
     }
 
     public void GameIsFinished()
     {
-        Debug.Log("GAME IS FINISHED");
+        gameUI_Manager.ShowGameIsFinished();
     }
     void Update()
     {
@@ -38,5 +38,16 @@ public class GameManager : MonoBehaviour
             gameIsOver = true;
             GameOver();
         }
+    }
+
+    public void ReturnToTheMainMenu()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("MainMenu");
+    }
+
+    public void Restart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

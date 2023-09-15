@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameUI_Manager : MonoBehaviour
 {
@@ -18,6 +19,11 @@ public class GameUI_Manager : MonoBehaviour
     }
 
     GameUI_State currentState;
+
+    private void Start()
+    {
+        SwitchUIState(GameUI_State.GamePlay);
+    }
     void Update()
     {
         HealthSlider.value = GM.playerCharacter.GetComponent<Health>().CurrentHealthPercentage;
@@ -57,9 +63,30 @@ public class GameUI_Manager : MonoBehaviour
         {
             SwitchUIState(GameUI_State.Pause);
         }
-        if (currentState == GameUI_State.Pause)
+        else if (currentState == GameUI_State.Pause)
         {
             SwitchUIState(GameUI_State.GamePlay);
         }
+    }
+
+    public void Button_MainMenu()
+    {
+
+        GM.ReturnToTheMainMenu();
+    }
+
+    public void Button_Restart()
+    {
+        GM.Restart();
+    }
+
+    public void ShowGameOverUI()
+    {
+        SwitchUIState(GameUI_State.GameOver);
+    }
+
+    public void ShowGameIsFinished()
+    {
+        SwitchUIState(GameUI_State.GameIsFinished);
     }
 }
